@@ -4,7 +4,7 @@ import {ref} from 'vue'
 export const useCounterStore = defineStore('count', () => {
     const count = ref(0)
     function increment() {
-        count.value ++
+        count.value += 2
     }
     return {
         count,
