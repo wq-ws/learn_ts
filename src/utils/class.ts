@@ -1,13 +1,14 @@
-class Animal {
-    private name;
-    public constructor(name:string) {
-      console.log(Animal.name)
+
+// class Animal {
+//     private name;
+//     public constructor(name:string) {
+//       console.log(Animal.name)
       
-      this.name = name
-    }
-  }
-let a = new Animal('Jack')
-console.log(a)
+//       this.name = name
+//     }
+//   }
+// let a = new Animal('Jack')
+// console.log(a)
 
   // abstract class Animal {
   //   public name;
@@ -26,3 +27,31 @@ console.log(a)
   // }
   
   // let cat = new Cat('Tom');
+
+// const tuple = [1, '222',2,3,4,5] as const
+
+// export type TupleToObject<T extends readonly (string | number)[]> = {
+//   [p in T[number]] : p
+// }
+// type result = TupleToObject<typeof tuple>
+
+
+
+// type name = 'wq' | 'ws'
+// type TName = {
+//   [P in name] : P
+// }
+
+
+export const makeNumberProp = <T>(defaultVal: T) => ({
+  type: Number,
+  default: defaultVal,
+
+  
+
+function complexFunction<T extends { [key: string]: any }>(input: T, callback: (obj: T) => void): T {} = {}
+
+
+{
+  "1" : 1111
+}
