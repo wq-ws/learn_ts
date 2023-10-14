@@ -1,15 +1,26 @@
 <script setup lang="ts">
 import { useCounterStore } from "@/store/modules/count";
-import { makeNumberProp } from "@/utils/class";
+import { type PropType } from "vue";
 
 const counterStore = useCounterStore();
 type numberArr = 0 | 1 | 2;
 
-// defineProps<{ msg: string }>();
 defineProps({
-  msg: String,
-  number: makeNumberProp<numberArr>(0),
+  msg: {
+    type: String,
+    default: "",
+  },
+  number: {
+    type: Number as PropType<numberArr>,
+    default: 0,
+  },
 });
+// defineProps({keyof props});
+// defineProps<props>();
+// const props = withDefaults(defineProps<props>(), {
+//   msg: "1",
+//   number: 0,
+// });
 </script>
 
 <template>

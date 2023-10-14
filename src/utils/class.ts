@@ -46,12 +46,14 @@
 export const makeNumberProp = <T>(defaultVal: T) => ({
   type: Number,
   default: defaultVal,
-
+})
   
+const a =  [1, 2 ,3] as const
+console.log('a',a);
 
-function complexFunction<T extends { [key: string]: any }>(input: T, callback: (obj: T) => void): T {} = {}
+  // function complexFunction<T extends { [key: string]: any }>(input: T, callback: (obj: T) => void): T {} = {}
 
 
-{
-  "1" : 1111
-}
+  // {
+  //   "1" : 1111
+// }
