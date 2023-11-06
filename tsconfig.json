@@ -1,14 +1,15 @@
 {
+
   "compilerOptions": {
     // 配置项 start 添加配置项，避免页面内部eslint提示报错
     "baseUrl": "./",
     "paths": {
       "@/*" : ["src/*"]
     },
+    "module": "commonjs",  
     // 配置项 end
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "module": "ESNext",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "skipLibCheck": true,
 
@@ -17,6 +18,7 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
     "noEmit": true,
     "jsx": "preserve",
 
@@ -26,6 +28,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue", "newJson.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
