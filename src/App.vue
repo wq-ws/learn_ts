@@ -6,25 +6,27 @@
 
   const pageCount = ref(0)
   const tmpArr: any[] = []
-  const needIndex = [18, 81, 84]
-  const varIndex = [87, 90, 91]
-  const varIndex1 = [88, 91, 92]
+  const varIndex = [18, 80, 81, 87, 90, 91]
+  const varIndex1 = [18, 80, 81, 88, 91, 92]
+  const varIndex2 = [18, 81, 82, 89, 92, 93]
 
-  const compareObj = ['客户追踪号', '物料编码', '型号', '品牌', '总价', '数量']
+  const compareObj = ['客户追踪号', '型号', '物料编码', '品牌', '总价', '数量']
   const sortObj = ['品牌', '型号', '数量', '总价', '客户追踪号', '物料编码']
   const loadPDF = async () => {
-    const loadingTask = pdfjsLib.getDocument('../src/assets/PI.pdf')
+    const loadingTask = pdfjsLib.getDocument('../src/assets/1.pdf')
     loadingTask.promise.then(async (pdf: any) => {
       pageCount.value = pdf.numPages
       for (let i = 1; i <= pageCount.value; i++) {
         const page = await pdf.getPage(i)
         const tmp = await page.getTextContent()
+        console.log(tmp)
+
         const obj = tmp.items
           .filter((_: any, index: number) => {
             return (
-              needIndex.includes(index) ||
               (tmp.items.length === 113 && varIndex.includes(index)) ||
-              (tmp.items.length === 114 && varIndex1.includes(index))
+              (tmp.items.length === 114 && varIndex1.includes(index)) ||
+              (tmp.items.length === 115 && varIndex2.includes(index))
             )
           })
           .reduce((acc: any, item: any, index: any) => {
