@@ -1,71 +1,26 @@
 <script setup lang="ts">
-  import { onMounted, ref } from 'vue'
-  const { pdfjsLib } = globalThis
+import { ref } from 'vue'
+import pdf from "./components/pdf.vue";
 
-  pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://mozilla.github.io/pdf.js/build/pdf.worker.mjs'
+type ColumnType = Array<{ key: string, title: string }>
 
-  const pageCount = ref(0)
-  const tmpArr: any[] = []
-  const varIndex = [18, 80, 81, 87, 90, 91]
-  const varIndex1 = [18, 80, 81, 88, 91, 92]
-  const varIndex2 = [18, 81, 82, 89, 92, 93]
-
-  const compareObj = ['客户追踪号', '型号', '物料编码', '品牌', '总价', '数量']
-  const sortObj = ['品牌', '型号', '数量', '总价', '客户追踪号', '物料编码']
-  const loadPDF = async () => {
-    const loadingTask = pdfjsLib.getDocument('../src/assets/1.pdf')
-    loadingTask.promise.then(async (pdf: any) => {
-      pageCount.value = pdf.numPages
-      for (let i = 1; i <= pageCount.value; i++) {
-        const page = await pdf.getPage(i)
-        const tmp = await page.getTextContent()
-        console.log(tmp)
-
-        const obj = tmp.items
-          .filter((_: any, index: number) => {
-            return (
-              (tmp.items.length === 113 && varIndex.includes(index)) ||
-              (tmp.items.length === 114 && varIndex1.includes(index)) ||
-              (tmp.items.length === 115 && varIndex2.includes(index))
-            )
-          })
-          .reduce((acc: any, item: any, index: any) => {
-            acc[compareObj[index]] = index === 0 ? item.str.slice(12) : item.str
-            return acc
-          }, {})
-
-        const tmpObj: any = {}
-
-        sortObj.forEach(item => {
-          tmpObj[item] = obj[item]
-        })
-
-        tmpArr.push(tmpObj)
-      }
-      console.log(tmpArr)
-    })
-  }
-
-  onMounted(() => {
-    loadPDF()
+const showData = ref<any>([])
+const column = ref<ColumnType>([])
+const updatePdf = (data: Array<any>) => {
+  showData.value = data.map((item, index) => {
+    return {
+      ...item,
+      key: index
+    }
   })
+  column.value = Object.keys(data[0]).map(item => ({ key: item, title: item }))
+  console.log(column.value, showData.value);
+}
 </script>
 
 <template>
-  <!-- <canvas id="the-canvas"></canvas> -->
+  <pdf @update="updatePdf" />
+  <n-data-table :columns="column" :data="showData" />
 </template>
 
-<style scoped>
-  .logo {
-    height: 6em;
-    padding: 1.5em;
-    will-change: filter;
-    transition: filter 300ms;
-  }
-  .logo:hover {
-    filter: drop-shadow(0 0 2em #646cffaa);
-  }
-  .logo.vue:hover {
-    filter: drop-shadow(0 0 2em #42b883aa);
-  }
-</style>
+<style scoped></style>
